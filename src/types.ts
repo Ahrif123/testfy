@@ -36,6 +36,7 @@ export interface StepResult {
 export interface TestRun {
   id?: number
   testCaseId: number
+  steps: TestStep[] // snapshot of the steps when the run started
   tester: string
   testDate: string
   buildVersion: string
