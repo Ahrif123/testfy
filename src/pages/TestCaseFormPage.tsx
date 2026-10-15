@@ -169,7 +169,9 @@ export default function TestCaseFormPage() {
     async function handleDelete() {
         if (caseId === undefined) return
         if (!confirm(`Delete ${form.tcId} and all of its test runs? This cannot be undone.`)) return
-        await db.transaction('rw', db.testCases, db.testRuns, async () => {
+        await db.transaction('rw', [db.testCases, db.testRuns, db.screenshots], async () => {
+            const runIds = (await db.testRuns.where('testCaseId').equals(caseId).primaryKeys()) as number[]
+            await db.screenshots.where('runId').anyOf(runIds).delete()
             await db.testRuns.where('testCaseId').equals(caseId).delete()
             await db.testCases.delete(caseId)
         })
