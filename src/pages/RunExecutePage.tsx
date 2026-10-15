@@ -8,6 +8,7 @@ import { inputClass } from '../utils/styles'
 import { RunStatusBadge } from '../components/StatusBadge'
 import ScreenshotGallery from '../components/ScreenshotGallery'
 import { compressImage } from '../utils/image'
+import { exportRunToWord } from '../utils/report/exportReport'
 
 const STATUS_BUTTONS: StepStatus[] = ['Passed', 'Failed', 'Blocked', 'Skipped']
 
@@ -39,6 +40,8 @@ export default function RunExecutePage() {
     const [error, setError] = useState('')
     const [activeStep, setActiveStep] = useState<number | null>(null)
     const [dragOver, setDragOver] = useState<number | null>(null)
+    const [includePassword, setIncludePassword] = useState(false)
+    const [exporting, setExporting] = useState(false)
 
     useEffect(() => {
         db.testRuns.get(id).then(async (r) => {
@@ -157,6 +160,18 @@ export default function RunExecutePage() {
             await db.testRuns.delete(id)
         })
         navigate('/runs')
+    }
+
+    const exportWord = async () => {
+        setExporting(true)
+        try {
+            await exportRunToWord(id, { includePassword })
+        } catch (err) {
+            console.error(err)
+            setError('Could not export the report. Please try again.')
+        } finally {
+            setExporting(false)
+        }
     }
 
     const deleteScreenshot = async (screenshotId: number) => {
@@ -331,17 +346,37 @@ export default function RunExecutePage() {
 
             {error && <p className="text-sm text-red-600 mt-4">{error}</p>}
 
-            <div className="flex items-center justify-between mt-6">
+            <div className="flex flex-wrap items-center justify-between gap-4 mt-6 pt-6 border-t border-slate-200">
                 <button type="button" onClick={deleteRun} className="text-sm text-red-600 hover:underline">
                     Delete run
                 </button>
-                <button
-                    type="button"
-                    onClick={completeRun}
-                    className="bg-emerald-600 text-white text-sm font-medium px-4 py-2 rounded-md hover:bg-emerald-700"
-                >
-                    {run.completedAt ? 'Save & Close' : 'Complete Run'}
-                </button>
+
+                <div className="flex flex-wrap items-center gap-3">
+                    <label className="flex items-center gap-2 text-sm text-slate-600 cursor-pointer select-none">
+                        <input
+                            type="checkbox"
+                            checked={includePassword}
+                            onChange={(e) => setIncludePassword(e.target.checked)}
+                            className="accent-emerald-600"
+                        />
+                        Include password
+                    </label>
+                    <button
+                        type="button"
+                        onClick={exportWord}
+                        disabled={exporting}
+                        className="border border-slate-300 text-slate-700 text-sm font-medium px-4 py-2 rounded-md hover:bg-slate-100 disabled:opacity-50"
+                    >
+                        {exporting ? 'Generating…' : '📄 Export to Word'}
+                    </button>
+                    <button
+                        type="button"
+                        onClick={completeRun}
+                        className="bg-emerald-600 text-white text-sm font-medium px-4 py-2 rounded-md hover:bg-emerald-700"
+                    >
+                        {run.completedAt ? 'Save & Close' : 'Complete Run'}
+                    </button>
+                </div>
             </div>
         </div>
     )

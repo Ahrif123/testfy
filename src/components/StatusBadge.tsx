@@ -16,7 +16,11 @@ export default function StatusBadge({ status, label }: { status: StepStatus; lab
   )
 }
 
-// Shows "In progress" until the run is completed
+// Shows the result once every step has one; "In progress" while steps are still untested
 export function RunStatusBadge({ run }: { run: TestRun }) {
-  return run.completedAt ? <StatusBadge status={run.status} /> : <StatusBadge status="Untested" label="In progress" />
+  return run.status === 'Untested' ? (
+    <StatusBadge status="Untested" label="In progress" />
+  ) : (
+    <StatusBadge status={run.status} />
+  )
 }
