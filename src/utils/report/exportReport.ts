@@ -42,3 +42,11 @@ export async function exportRunToWord(runId: number, options: ReportOptions) {
   const status = item.run.status === 'Untested' ? 'InProgress' : item.run.status
   downloadBlob(blob, safeFileName(`${item.testCase?.tcId ?? 'TestRun'}_${item.run.testDate}_${status}.docx`))
 }
+
+
+// Several test cases in one file, with a Summary page (Reports page)
+export async function exportRunsToWord(runIds: number[], options: ReportOptions, fileName: string) {
+  const items = await Promise.all(runIds.map((id) => loadReportItem(id)))
+  const blob = await Packer.toBlob(buildReport(items, options))
+  downloadBlob(blob, safeFileName(fileName))
+}

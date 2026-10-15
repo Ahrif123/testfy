@@ -33,6 +33,7 @@ export interface ReportItem {
 
 export interface ReportOptions {
   includePassword: boolean
+  subtitle?: string // shown under the title on multi test case reports
 }
 
 // ---------- Layout constants ----------
@@ -309,7 +310,7 @@ export function buildReport(items: ReportItem[], options: ReportOptions): Docume
 
   if (items.length > 1) {
     const first = items[0]
-    const subtitle = [first.testCase?.project, first.testCase?.module && `Module: ${first.testCase.module}`, formatDate(first.run.testDate)]
+    const subtitle = options.subtitle ?? [first.testCase?.project, first.testCase?.module && `Module: ${first.testCase.module}`, formatDate(first.run.testDate)]
       .filter(Boolean)
       .join('  •  ')
     children.push(
