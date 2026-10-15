@@ -12,6 +12,7 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
     "dexie": "^4.4.6",
+    "dexie-export-import": "^4.4.1",
     "dexie-react-hooks": "^4.4.0",
     "docx": "^9.11.0",
     "react": "^19.2.8",

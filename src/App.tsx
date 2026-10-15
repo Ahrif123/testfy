@@ -8,6 +8,7 @@ import TestCaseFormPage from './pages/TestCaseFormPage'
 import RunSetupPage from './pages/RunSetupPage'
 import RunExecutePage from './pages/RunExecutePage'
 import DashboardPage from './pages/DashboardPage'
+import BackupPage from './pages/BackupPage'
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
             <Route path="/runs" element={<TestRunsPage />} />
             <Route path="/runs/:runId" element={<RunExecutePage />} />
             <Route path="/reports" element={<ReportsPage />} />
+            <Route path="/backup" element={<BackupPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>

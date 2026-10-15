@@ -5,6 +5,7 @@ const links = [
   { to: '/', label: 'Test Cases', icon: '📋' },
   { to: '/runs', label: 'Test Runs', icon: '▶️' },
   { to: '/reports', label: 'Reports', icon: '📄' },
+  { to: '/backup', label: 'Backup', icon: '💾' },
 ]
 
 export default function Sidebar() {
