@@ -7,6 +7,7 @@ import NotFoundPage from './pages/NotFoundPage'
 import TestCaseFormPage from './pages/TestCaseFormPage'
 import RunSetupPage from './pages/RunSetupPage'
 import RunExecutePage from './pages/RunExecutePage'
+import DashboardPage from './pages/DashboardPage'
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Sidebar />
         <main className="flex-1 overflow-y-auto">
           <Routes>
+            <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/" element={<TestCasesPage />} />
             <Route path="/cases/new" element={<TestCaseFormPage />} />
             <Route path="/cases/:id/edit" element={<TestCaseFormPage />} />
