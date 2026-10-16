@@ -13,9 +13,9 @@ import BackupPage from './pages/BackupPage'
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="flex h-screen bg-slate-50">
+      <div className="flex h-screen flex-col md:flex-row">
         <Sidebar />
-        <main className="flex-1 overflow-y-auto">
+        <main className="graph-paper min-w-0 flex-1 overflow-y-auto">
           <Routes>
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/" element={<TestCasesPage />} />

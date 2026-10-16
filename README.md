@@ -1,75 +1,41 @@
-# React + TypeScript + Vite
+# Testfy
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A test case manager for manual QA testers. Write test cases, run them step by step, attach screenshots, and export a Word test report in the format QA teams already use.
 
-Currently, two official plugins are available:
+**Live demo:** https://YOUR-VERCEL-URL.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Why I built it
 
-## React Compiler
+At my last QA job, test cases lived in an Excel sheet with macros, and every execution meant copying screenshots into Word by hand. Testfy replaces that whole workflow: the app is the source of truth, and the Word report is generated from it.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- **Test cases** with Module, Sub Module, Scenario, Preconditions, Priority, and numbered steps (reorder, add, delete)
+- **Auto-generated TC IDs** from the module (e.g. `TC-SYS-004`), with duplicate-ID protection
+- **Step-by-step execution:** Passed / Failed / Blocked / Skipped, Actual Result, and QA Remarks per step
+- **Auto-block:** when a step fails, offers to mark the remaining steps as Blocked
+- **Screenshots per step:** paste with Ctrl + V, upload, or drag and drop; compressed automatically
+- **Word export:** a single test case, or several with a summary page; the password is masked by default
+- **Dashboard:** pass rate, results per module, and a "Needs attention" list of failed and blocked cases
+- **Run history:** each run keeps a snapshot of the steps it executed, so old reports stay accurate after a test case is edited
+- **Backup and restore** to a single file
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Privacy
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+There's no account and no server. All data is stored in your own browser (IndexedDB) and never leaves your computer. Use **Backup** to move data between browsers or computers.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Tech stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+React · TypeScript · Vite · Tailwind CSS · React Router · Dexie (IndexedDB) · docx · Vercel
 
-```
+## Run locally
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+    npm install
+    npm run dev
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Then open http://localhost:5173
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## About
 
-```
+Built by Ahrif Hajjie Cruz, a QA tester who also builds front ends.
+[Portfolio](https://ahrif-portfolio.vercel.app) · [LinkedIn](https://www.linkedin.com/in/ahrif-hajjie-cruz-018540334/)

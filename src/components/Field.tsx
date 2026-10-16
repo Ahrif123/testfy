@@ -15,15 +15,15 @@ export default function Field({
 }) {
   return (
     <label className="block">
-      <span className="block text-sm font-medium text-slate-700 mb-1">
+      <span className="mb-1 block text-[13px] font-semibold text-ink-soft">
         {label}
-        {required && <span className="text-red-500"> *</span>}
+        {required && <span className="font-medium text-fail"> (required)</span>}
       </span>
       {children}
       {error ? (
-        <span className="block text-xs text-red-600 mt-1">{error}</span>
+        <span className="mt-1 block text-xs font-medium text-fail">{error}</span>
       ) : (
-        hint && <span className="block text-xs text-slate-400 mt-1">{hint}</span>
+        hint && <span className="mt-1 block text-xs text-ink-faint">{hint}</span>
       )}
     </label>
   )

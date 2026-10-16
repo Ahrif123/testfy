@@ -1,1 +1,162 @@
 @import "tailwindcss";
+
+/* ---------- Testfy design tokens ----------
+   Light = "Test sheet", dark = "Night shift".
+   Change the look of the whole app from here. */
+:root {
+  --paper: #eef2f8; /* page background */
+  --grid: #dfe6f2; /* graph-paper lines */
+  --sheet: #ffffff; /* panels and cards */
+  --rule: #d3dcec; /* borders */
+  --ink: #14203f; /* main text */
+  --ink-soft: #4a5878; /* secondary text */
+  --ink-faint: #7a87a6; /* hints, captions */
+  --action: #1f5fd1; /* primary buttons, focus */
+  --on-action: #ffffff;
+  --pen: #d6105a; /* logo + current step only */
+  --note: #fff3b0; /* sticky notes */
+  --note-ink: #3a3420;
+
+  --side: #14203f; /* sidebar */
+  --side-ink: #c9d3ee;
+  --side-ink-strong: #ffffff;
+  --side-hover: #1d2b52;
+
+  --pass: #127a4f;
+  --pass-bg: #e3f4ec;
+  --fail: #c62828;
+  --fail-bg: #fde8e8;
+  --block: #b45309;
+  --block-bg: #fdf0dc;
+  --skip: #5b6782;
+  --skip-bg: #edf0f6;
+}
+
+/* Dark: follows the computer's setting until a choice is made with the toggle */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --paper: #0e1430;
+    --grid: #161e40;
+    --sheet: #161d3d;
+    --rule: #2a3463;
+    --ink: #e8ecfb;
+    --ink-soft: #aab3d6;
+    --ink-faint: #7c86ad;
+    --action: #5b8cff;
+    --on-action: #0b1230;
+    --pen: #ff4f9a;
+    --note: #3a3418;
+    --note-ink: #f3e6a6;
+    --side: #090e24;
+    --side-ink: #a9b3d8;
+    --side-ink-strong: #ffffff;
+    --side-hover: #141b3c;
+    --pass: #3ddc97;
+    --pass-bg: #123528;
+    --fail: #ff6b6b;
+    --fail-bg: #3a1620;
+    --block: #f5b04a;
+    --block-bg: #3a2a12;
+    --skip: #a3acc9;
+    --skip-bg: #1f2747;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --paper: #0e1430;
+  --grid: #161e40;
+  --sheet: #161d3d;
+  --rule: #2a3463;
+  --ink: #e8ecfb;
+  --ink-soft: #aab3d6;
+  --ink-faint: #7c86ad;
+  --action: #5b8cff;
+  --on-action: #0b1230;
+  --pen: #ff4f9a;
+  --note: #3a3418;
+  --note-ink: #f3e6a6;
+  --side: #090e24;
+  --side-ink: #a9b3d8;
+  --side-ink-strong: #ffffff;
+  --side-hover: #141b3c;
+  --pass: #3ddc97;
+  --pass-bg: #123528;
+  --fail: #ff6b6b;
+  --fail-bg: #3a1620;
+  --block: #f5b04a;
+  --block-bg: #3a2a12;
+  --skip: #a3acc9;
+  --skip-bg: #1f2747;
+}
+
+/* Makes the tokens usable as Tailwind classes: bg-paper, text-ink, border-rule, bg-pass-bg… */
+@theme inline {
+  --color-paper: var(--paper);
+  --color-grid: var(--grid);
+  --color-sheet: var(--sheet);
+  --color-rule: var(--rule);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-action: var(--action);
+  --color-on-action: var(--on-action);
+  --color-pen: var(--pen);
+  --color-note: var(--note);
+  --color-note-ink: var(--note-ink);
+  --color-side: var(--side);
+  --color-side-ink: var(--side-ink);
+  --color-side-ink-strong: var(--side-ink-strong);
+  --color-side-hover: var(--side-hover);
+  --color-pass: var(--pass);
+  --color-pass-bg: var(--pass-bg);
+  --color-fail: var(--fail);
+  --color-fail-bg: var(--fail-bg);
+  --color-block: var(--block);
+  --color-block-bg: var(--block-bg);
+  --color-skip: var(--skip);
+  --color-skip-bg: var(--skip-bg);
+
+  --font-sans: 'Atkinson Hyperlegible Next Variable', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'Atkinson Hyperlegible Mono Variable', ui-monospace, Consolas, monospace;
+  --font-display: 'Familjen Grotesk Variable', 'Segoe UI', system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  :focus-visible {
+    outline: 2px solid var(--action);
+    outline-offset: 2px;
+  }
+}
+
+/* Faint graph paper, like a printed test log */
+@utility graph-paper {
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
